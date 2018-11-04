@@ -1,7 +1,9 @@
 import { http } from "../../Utils/http";
-import { rootUrl } from "../../Utils/config";
+// import { rootUrl } from "../../Utils/config";
 import router from "../../router/index";
 import { Toast, Dialog } from "vant";
+import { get_main_obj, getCookie } from "../../Utils/store";
+
 const state = {
   userPlan: [], //用户的审核计划
   planData: {
@@ -55,7 +57,7 @@ const state = {
     areaOption: [],
     checklistOption: []
   }, //添加新的审核计划用到的数据
-  searchData:""//搜索审核参数
+  searchData: "" //搜索审核参数
 };
 
 const getters = {
@@ -122,7 +124,8 @@ const getters = {
   //获取审核单列表
   layer_get_all_checklist_list: state => {
     let tempData = state.allChecklists;
-    if(tempData.check_l_ist==undefined||tempData.check_l_ist.length==0) return tempData
+    if (tempData.check_l_ist == undefined || tempData.check_l_ist.length == 0)
+      return tempData;
     return tempData.filter(data => {
       let temp = state.checklistByArea.check_l_ist.find(cData => {
         return cData.id == data.id;
@@ -433,9 +436,7 @@ const actions = {
   //审核作废重新审核
   layer_action_reaudit({ dispatch, state }) {
     http({
-      url:
-        "getLPA/reaudit/" +
-        state.viewFinishAudit.id,
+      url: "getLPA/reaudit/" + state.viewFinishAudit.id,
       sCallback: function(res) {
         dispatch("layer_get_all_observeds");
         Toast("重新初始化此次审核。。。");
@@ -526,9 +527,9 @@ const actions = {
     });
   },
   //获取分层审核计划-目录
-  layer_get_all_plan_table({ commit,state }) {
+  layer_get_all_plan_table({ commit, state }) {
     http({
-      url: "getLPA/Plan/"+state.searchData,
+      url: "getLPA/Plan/" + state.searchData,
       params: {
         page: state.page,
         count: state.count
@@ -539,18 +540,18 @@ const actions = {
     });
   },
   //删除审核计划
-  layer_del_plan({dispatch},{id}){
+  layer_del_plan({ dispatch }, { id }) {
     http({
-      url: 'getLPA/delPlan',
-      type: 'POST',
+      url: "getLPA/delPlan",
+      type: "POST",
       data: {
-          id: id
+        id: id
       },
-      sCallback: function (res) {
-        dispatch("layer_get_all_plan_table")
-         Toast("计划删除成功。。。")
+      sCallback: function(res) {
+        dispatch("layer_get_all_plan_table");
+        Toast("计划删除成功。。。");
       }
-  })
+    });
   }
 };
 
@@ -578,7 +579,7 @@ const mutations = {
   layer_set_currentPage(state, { event }) {
     state.currentQuestionNum = state.currentQuestionNum + event;
     state.submitDropzoneConfig.url =
-      rootUrl +
+      getCookie("rootUrl") +
       "/getLPA/submitPic/" +
       state.planData.id +
       "/" +
@@ -702,8 +703,8 @@ const mutations = {
     state.schedule.currentMonth = data.date;
   },
   //设置审核计划的搜索参数
-  layer_set_search_data(state,{data}){
-    state.searchData=data
+  layer_set_search_data(state, { data }) {
+    state.searchData = data;
   }
 };
 export default {

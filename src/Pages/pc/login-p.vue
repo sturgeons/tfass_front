@@ -27,7 +27,7 @@
     <div class="bottom-center">
       <div class="footer">
         <p>天合富奥汽车安全系统（长春）有限公司成都分工公司</p>
-        <p>2016-2017 YAO XIN Version:3.0.106</p>
+        <p>2016-2017 YAO XIN Version:3.1.106</p>
         <p>No.268 South No.2 Road,Lonquanyi District, Economy Development Zone, Chengdu, Sichuan, China</p>
       </div>
     </div>

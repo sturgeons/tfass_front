@@ -6,8 +6,8 @@ const state = {
   location:{
     current:"Chengdu",
     locationList:[
-      {value:"http://www.yaoxin.top:82",lable:"Chengdu"},
-      {value:"HTTP://www.yaoxin.top:83",lable:"Changchun"}
+      {value:"http://cd.yaoxin.top",lable:"Chengdu"},
+      {value:"HTTP://www.yaoxin.top:82",lable:"Changchun"}
     ]
   }    
 };
